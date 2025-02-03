@@ -13,12 +13,20 @@ import (
 )
 
 func main() {
-	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.ANSIC})
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.ANSIC, TimeLocation: time.UTC})
 
-    client := db.Init()
-    broker := broker.Init()
-    cron := cron.Init()
+	client := db.Init()
+	broker := broker.Init()
+	cronClient := cron.Init()
 
-    fmt.Print(client, broker, cron)
+	res := fmt.Sprintf("%v %v", broker, cronClient)
+	_ = res
 
+	scheduledCursor := db.FindScheduledPosts(client)
+	unscheduledCursor := db.FindUnscheduledPosts(client)
+
+	cron.CreateJob(cronClient, scheduledCursor)
+	cron.CreateJob(cronClient, unscheduledCursor)
+
+	select {}
 }

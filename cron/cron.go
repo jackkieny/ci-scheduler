@@ -14,7 +14,7 @@ func Init() *cron.Cron {
 	c.Start()
 
 	elapsed := time.Since(start)
-	log.Info().Msgf("Cron initialized! (took %.3fs)", elapsed.Seconds())
+	log.Info().Msgf("Cron initialized! (took %.3fs)\n", elapsed.Seconds())
 
 	return c
 }
