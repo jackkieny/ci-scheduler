@@ -22,5 +22,5 @@ func ParseTime(isoTime string) (string, error) {
 
 	cron := fmt.Sprintf("%d %d %d %d %d", minute, hour, day, month, weekday)
 	fmt.Println(cron)
-	return "", nil
+	return cron, nil
 }

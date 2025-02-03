@@ -25,8 +25,8 @@ func main() {
 	scheduledCursor := db.FindScheduledPosts(client)
 	unscheduledCursor := db.FindUnscheduledPosts(client)
 
-	_ = scheduledCursor
-	_ = unscheduledCursor
+	cron.CreateJob(cronClient, scheduledCursor)
+	cron.CreateJob(cronClient, unscheduledCursor)
 
-	// select {}
+	select {}
 }
